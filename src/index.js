@@ -13,12 +13,14 @@ module.exports = (app) => {
     'pull_request.edited',
     'pull_request.reopened',
     'pull_request.synchronize'
-  ],async (context)=>{
+  ],async (context) => {
+    console.log("contexttt: ", JSON.stringify(context, null, 2));
+    // const pullRequest = context.payload.pull_request.title;
     const pullRequest = context.payload.pull_request;
     const name = "Trap-Bot";
     const checkOptions = {
       name: name,
-      head_branch: '', // workaround for https://github.com/octokit/rest.js/issues/874
+      // head_branch: '', // workaround for https://github.com/octokit/rest.js/issues/874
       head_sha: pullRequest.head.sha,
       status: 'in_progress',
       started_at: new Date().toISOString(),
@@ -28,9 +30,10 @@ module.exports = (app) => {
         text: `By default, trap-bot only checks the pull request title for the terms "[PB-XXXX]", "[BECH-XXXX]".`
       }
     }
-    return context.github.checks.create(context.repo(checkOptions))
-    console.log("OMG!!!!!!");
-    app.log("OMG!!!");
+    return context.github.checks.create(context.repo(checkOptions)).then((res) => {
+        console.log("ressss: " + JSON.stringify(res ,null, 2));
+        return res;
+    })
   })
   //], handlePullRequestChange.bind(null,app));
 
