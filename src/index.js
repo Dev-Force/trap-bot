@@ -1,58 +1,20 @@
-module.exports = (app) => {
-  // Your code here
-  app.log('Yay, the app was loaded!')
+const { handlePullRequestChange } = require('./event-handlers/pull-request-change');
+const { initJiraAuth } = require('./jira/jira-oauth');
 
-  // app.on('issues.opened', async (context) => {
-  //   const issueComment = context.issue(
-  //     { body: 'Thanks for opening this issue!' })
-  //   return context.github.issues.createComment(issueComment)
-  // })
+module.exports = async (app) => {
+  // Auth steps
+  // on app start perform jira auth
+  const jiraConnector = await initJiraAuth();
 
-  app.on([
-    'pull_request.opened',
-    'pull_request.edited',
-    'pull_request.reopened',
-    'pull_request.synchronize'
-  ],async (context) => {
-    console.log("contexttt: ", JSON.stringify(context, null, 2));
-    // const pullRequest = context.payload.pull_request.title;
-    const pullRequest = context.payload.pull_request;
-    const name = "Trap-Bot";
-    const checkOptions = {
-      name: name,
-      // head_branch: '', // workaround for https://github.com/octokit/rest.js/issues/874
-      head_sha: pullRequest.head.sha,
-      status: 'in_progress',
-      started_at: new Date().toISOString(),
-      output: {
-        title: `Title contains TEST`,
-        summary: `The title "${pullRequest.title}" contains "TEST".`,
-        text: `By default, trap-bot only checks the pull request title for the terms "[PB-XXXX]", "[BECH-XXXX]".`
-      }
-    }
-    return context.github.checks.create(context.repo(checkOptions)).then((res) => {
-        console.log("ressss: " + JSON.stringify(res ,null, 2));
-        return res;
-    })
-  })
-  //], handlePullRequestChange.bind(null,app));
-
-
-
-
-  // async function handlePullRequestChange(app,context){
-  //   const { action, pull_request: pr, repository: repo } = context.payload;
-  //   const timeStart = Date.now();
-  //   let log = context.log;
-  //   const issueComment = context.issue(
-  //     { body: 'Thanks for opening this issue!' })
-  //   return context.github.pull_request.createComment(issueComment)
-
-  // }
-
-  // For more information on building apps:
-  // https://probot.github.io/docs/
-
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
+  // Register event listeners
+  app.on(
+    [
+      'pull_request.opened',
+      'pull_request.edited',
+      'pull_request.reopened',
+      'pull_request.synchronize',
+      // 'check_run.rerequested', ???
+    ],
+    handlePullRequestChange(jiraConnector)
+  );
 }
