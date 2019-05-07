@@ -26,10 +26,7 @@ COPY . .
 
 RUN npm install --production
 
-COPY .env.example .env
-
-
-ENTRYPOINT ["probot","receive"]
+ENTRYPOINT ["probot","receive", "-p", "/github/workflow/event.json", "-e", "pull_request" ]
 CMD ["/usr/src/trapbot/src/index.js"]
 #EXPOSE 3000
 
