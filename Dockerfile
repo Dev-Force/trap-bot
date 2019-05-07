@@ -28,8 +28,8 @@ COPY . .
 RUN npm install --production
 
 
-#CMD ["npm","run","start"]
-ENTRYPOINT ["npm","run","start"]
 
+ENTRYPOINT ["probot","receive"]
+CMD ["/src/index.js"]
 #EXPOSE 3000
 
