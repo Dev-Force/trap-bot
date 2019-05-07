@@ -3,7 +3,7 @@ const util = require('util');
 
 exports.handlePullRequestChange = (jiraClient) => async (context) => {
     const getIssue = util.promisify(jiraClient.issue.getIssue).bind(jiraClient.issue);
-
+    
     // 1. get pull request title
     const { title, head: { sha } } = context.payload.pull_request;
     
@@ -23,10 +23,15 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
         }
 
         // 3. Verify that issue exists in jira
-        await getIssue({
+        const issue = await getIssue({
             issueKey,
         });
-        
+
+        const status = _.get(issue, "fields.status.name");
+        if(status==="Closed" || status==="Resolved"){
+            throw new Exception("Issue is old and "+status);
+        }
+
         // 4. return completed status
         return context.github.checks.create(context.repo({
             ...sharedCheckOptions,
