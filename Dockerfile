@@ -9,8 +9,6 @@ LABEL "repository"="http://github.com/taxibeat/trap-bot"
 LABEL "homepage"="http://github.com/taxibeat/trap-bot"
 LABEL "maintainer"="Christos Petropulos <chrispetropoulos91@gmail.com>"
 
-WORKDIR /usr/src/trapbot
-
 
 COPY package*.json ./
 
@@ -25,4 +23,4 @@ RUN apk add --no-cache --virtual .gyp \
 
 COPY . .
 
-ENTRYPOINT ["node","/usr/src/trapbot/src/index.action.js"]
+ENTRYPOINT ["node","/src/index.action.js"]
