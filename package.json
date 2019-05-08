@@ -20,6 +20,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
+    "actions-toolkit": "^2.0.0",
     "jira-connector": "^2.10.0",
     "lodash": "^4.17.11",
     "probot": "^7.2.0"

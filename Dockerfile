@@ -9,8 +9,6 @@ LABEL "repository"="http://github.com/taxibeat/trap-bot"
 LABEL "homepage"="http://github.com/taxibeat/trap-bot"
 LABEL "maintainer"="Christos Petropulos <chrispetropoulos91@gmail.com>"
 
-ENV PATH=$PATH:/usr/src/trapbot/node_modules/.bin
-
 WORKDIR /usr/src/trapbot
 
 RUN apk add --no-cache --virtual .gyp \
@@ -24,9 +22,4 @@ RUN apk add --no-cache --virtual .gyp \
 
 COPY . .
 
-RUN npm install --production
-
-ENTRYPOINT ["probot","receive", "-p", "/github/workflow/event.json", "-e", "pull_request" ]
-CMD ["/usr/src/trapbot/src/index.js"]
-#EXPOSE 3000
-
+ENTRYPOINT ["node","/usr/src/trapbot/src/index.action.js"]
