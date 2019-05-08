@@ -23,13 +23,16 @@ RUN apk add --no-cache --virtual .gyp \
     probot \
     && apk del .gyp
 
-COPY . .
-
 RUN npm install --production
 
+<<<<<<< Updated upstream
 
 
 ENTRYPOINT ["probot","receive"]
 CMD ["/src/index.js"]
 #EXPOSE 3000
+=======
+COPY . .
+>>>>>>> Stashed changes
 
+ENTRYPOINT ["node","/usr/src/trapbot/src/index.action.js"]
