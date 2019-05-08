@@ -4,7 +4,7 @@ workflow "Check for Jira Issues in Pull Request Titles" {
 }
 
 action "debug" {
-  uses = "actions/bin/debug"
+  uses = "actions/bin/debug@master"
 }
 
 action "trap-bot" {
