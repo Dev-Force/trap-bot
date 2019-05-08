@@ -11,6 +11,9 @@ LABEL "maintainer"="Christos Petropulos <chrispetropoulos91@gmail.com>"
 
 WORKDIR /usr/src/trapbot
 
+
+COPY package*.json ./
+
 RUN apk add --no-cache --virtual .gyp \
     python \
     make \
