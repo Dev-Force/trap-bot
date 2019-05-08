@@ -1,6 +1,10 @@
 workflow "Check for Jira Issues in Pull Request Titles" {
   on = "pull_request"
-  resolves = ["trap-bot"]
+  resolves = ["debug", "trap-bot"]
+}
+
+action "debug" {
+  uses = "actions/bin/debug"
 }
 
 action "trap-bot" {
