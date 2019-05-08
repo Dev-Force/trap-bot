@@ -1,7 +1,7 @@
 FROM node:10-alpine
 
 # A bunch of `LABEL` fields for GitHub to index
-LABEL "com.github.actions.name"="Jira issues "
+LABEL "com.github.actions.name"="trap-bot"
 LABEL "com.github.actions.description"="Force valid Jira issues in PR titles"
 LABEL "com.github.actions.icon"="gear"
 LABEL "com.github.actions.color"="red"
