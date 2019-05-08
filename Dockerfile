@@ -5,9 +5,9 @@ LABEL "com.github.actions.name"="Jira issues "
 LABEL "com.github.actions.description"="Force valid Jira issues in PR titles"
 LABEL "com.github.actions.icon"="gear"
 LABEL "com.github.actions.color"="red"
-LABEL "repository"="http://github.com/JasonEtco/node-branch-cleanup-action"
-LABEL "homepage"="http://github.com/JasonEtco/node-branch-cleanup-action"
-LABEL "maintainer"="Jason Etcovitch <jasonetco@github.com>"
+LABEL "repository"="http://github.com/taxibeat/trap-bot"
+LABEL "homepage"="http://github.com/taxibeat/trap-bot"
+LABEL "maintainer"="Christos Petropulos <chrispetropoulos91@gmail.com>"
 
 
 WORKDIR /usr/src/trapbot
