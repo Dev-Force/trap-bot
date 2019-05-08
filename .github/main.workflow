@@ -8,7 +8,7 @@ action "debug" {
 }
 
 action "trap-bot" {
-  uses = "taxibeat/trap-bot@develop"
+  uses = "Dev-Force/trap-bot@develop"
   secrets = [
     "JIRA_PASSWORD",
     "JIRA_USERNAME",
