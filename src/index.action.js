@@ -4,6 +4,7 @@ const { handlePullRequestChange } = require('./event-handlers/pull-request-chang
 
 // Run your GitHub Action!
 Toolkit.run(async tools => {
+    tools.log(JSON.stringify(tools.context.payload));
     const jiraConnector = await initJiraAuth();
 
     await handlePullRequestChange(jiraConnector)(tools.context);
