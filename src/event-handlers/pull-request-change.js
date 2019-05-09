@@ -71,32 +71,11 @@ exports.handlePullRequestChangeProbot = (context) => {
 
 exports.handlePullRequestChangeGithubAction = async (tools) => {
     const jiraConnector = await initJiraAuth();
-
-    const toolsAdapter = {
-        payload: {
-            pull_request: tools.context.payload.pull_request
-        },
-        github: {
-            checks: {
-                create: (obj) => {
-                    return tools.github.checks.create(obj);
-                }
-            }
-        },
-        repo: (obj) => {
-            return {
-                ...tools.context.repo,
-                ...obj,
-            }
-        },
-    };
-
     const result = await handlePullRequestChange(jiraConnector, tools.context.payload.pull_request.title);
 
     if (result) {
-        return tools.exit.success('hihi');
+        return tools.exit.success('success');
     } 
 
-    return tools.exit.failure('lulu');
-
+    return tools.exit.failure('failure');
 }
