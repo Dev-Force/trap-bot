@@ -12,7 +12,7 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
     const issueKey = _.get(title.split(' '), [0]);
 
     const sharedCheckOptions = {
-        name: "Trap-Bot",
+        name: "trap-bot",
         head_sha: sha,
         started_at: new Date().toISOString(),
         completed_at: new Date().toISOString(),
@@ -38,7 +38,7 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
             ...sharedCheckOptions,
             output: {
                 // title and summary must be different based on the outcome of the flow actions
-                title: `Correct PR title`,
+                title: `Valid PR title`,
                 summary: `PR title contains a jira issue`,
                 text: `By default, trap-bot only checks the pull request title for JIRA issues.`
             },
@@ -51,7 +51,7 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
             ...sharedCheckOptions,
             output: {
                 // title and summary must be different based on the outcome of the flow actions
-                title: `Incorrect PR title`,
+                title: `Invalid PR title`,
                 summary: `PR title should contain a jira issue (PB-XXXX - PR_TITLE_HERE)`,
                 text: `By default, trap-bot only checks the pull request title for JIRA issues.`
             },
