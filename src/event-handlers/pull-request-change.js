@@ -29,7 +29,7 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
         });
 
         const status = _.get(issue, "fields.status.name");
-        if(status==="Closed" || status==="Resolved"){
+        if(status==="Closed" || status==="Resolved") {
             throw new Exception("Issue is old and "+status);
         }
 

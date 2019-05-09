@@ -7,6 +7,23 @@ Toolkit.run(async tools => {
     tools.log(JSON.stringify(tools.context.payload));
     const jiraConnector = await initJiraAuth();
 
-    await handlePullRequestChange(jiraConnector)(tools);
-    tools.exit.success('We did it!')
+    const toolsAdapter = {
+        payload: {
+            pull_request: tools.context.payload.pull_request
+        },
+        github: {
+            checks: {
+                create: tools.github.checks.create
+            }
+        },
+        repo: (obj) => {
+            return {
+                ...tools.repo,
+                ...obj,
+            }
+        },
+    };
+
+    await handlePullRequestChange(jiraConnector)(toolsAdapter);
+    tools.exit.success('We did it!');
 });
