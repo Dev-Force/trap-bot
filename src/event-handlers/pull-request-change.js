@@ -2,6 +2,7 @@ const _ = require('lodash');
 const util = require('util');
 
 exports.handlePullRequestChange = (jiraClient) => async (context) => {
+    const githubApi = context.github ? context.github : context;
     const getIssue = util.promisify(jiraClient.issue.getIssue).bind(jiraClient.issue);
     
     // 1. get pull request title
@@ -33,7 +34,7 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
         }
 
         // 4. return completed status
-        return context.github.checks.create(context.repo({
+        return githubApi.checks.create(context.repo({
             ...sharedCheckOptions,
             output: {
                 // title and summary must be different based on the outcome of the flow actions
@@ -46,7 +47,7 @@ exports.handlePullRequestChange = (jiraClient) => async (context) => {
         }));
     } catch (e) {
         // 4. return failed status
-        return context.github.checks.create(context.repo({
+        return githubApi.checks.create(context.repo({
             ...sharedCheckOptions,
             output: {
                 // title and summary must be different based on the outcome of the flow actions
