@@ -4,6 +4,9 @@ const util = require('util');
 exports.handlePullRequestChange = (jiraClient) => async (context) => {
     const githubApi = context.github ? context.github : context;
     const getIssue = util.promisify(jiraClient.issue.getIssue).bind(jiraClient.issue);
+
+
+    console.log('githubapi:', githubApi);
     
     // 1. get pull request title
     const { title, head: { sha } } = context.payload.pull_request;
