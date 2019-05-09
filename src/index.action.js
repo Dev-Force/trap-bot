@@ -9,11 +9,11 @@ Toolkit.run(async tools => {
 
     const toolsAdapter = {
         payload: {
-            pull_request: tools.context.payload.pull_request
+            pull_request: tools.context.payload.pull_request.bind(tools.context.payload)
         },
         github: {
             checks: {
-                create: tools.github.checks.create
+                create: tools.github.checks.create.bind(tools.github.checks)
             }
         },
         repo: (obj) => {
