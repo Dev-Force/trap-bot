@@ -1,4 +1,4 @@
-const { handlePullRequestChange } = require('./event-handlers/pull-request-change');
+const { handlePullRequestChangeProbot } = require('./event-handlers/pull-request-change');
 const { initJiraAuth } = require('./jira/jira-oauth');
 
 module.exports = async (app) => {
@@ -14,7 +14,6 @@ module.exports = async (app) => {
       'pull_request.reopened',
       'pull_request.synchronize',
       // 'check_run.rerequested', ???
-    ],
-    handlePullRequestChange(jiraConnector)
+    ], handlePullRequestChangeProbot
   );
 }
