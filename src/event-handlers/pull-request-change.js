@@ -35,13 +35,12 @@ const handlePullRequestChange = async (jiraClient, pr_title) => {
 exports.handlePullRequestChangeProbot = (context) => {
     const { title, head: { sha } } = context.payload.pull_request;
     const sharedCheckOptions = {
-        name: "trap-bot",
+        name: "Trap-Bot",
         head_sha: sha,
         started_at: new Date().toISOString(),
         completed_at: new Date().toISOString(),
     };
     const result = handlePullRequestChange(jiraConnector, title);
-
 
     if (result) {
         return context.github.checks.create(context.repo({
